@@ -48,79 +48,17 @@ knitr::opts_chunk$set(echo = TRUE)
 > As we increased the number of words, 
 >
 > We can see there are various of values/relationships that impact the Happiness of people.
+>
+> Let's sort these values into smaller subgroups for our better analysis.
+
+
+\
+
+
 
 *******
 
-### Among different values/relationships, we are going to examine how those factors affect the different groups of people. 
-
-
-
-> We are going to divide into two subtopics.
->
-> \ 1. Difference between genders
->
-> \ 2. Difference between marital status
->
-> We are going to analyze by using proportion difference of two groups.
-
-
-******
-
-### Difference btween genders
-
-> Let's look at the Comparison of Proportion graph of male and female.
-
-\
-
-![](../figs/Proportion_Gender.png){ width=100% }
-
-> Obvious result came out.
->
-> Males feel happy with their wife, girlfriend.
->
-> Females feel happy with their husband and boyfriend.
-
-#### More analysis
-
-> One interesting inference we can do it about how males prefer investing and gambling as the words "bitcoin" and "bet" were more towards male in the graph. Another interseting inference (or obvious) is that female feel more happy with "makeup". There are more analysis we can do with this Comparison of Proportions graph; however, I will just list some interesting words that are more towards a certain gender.
->
-> Male: auto, video, cigarrete, alcohol, dj, and etc.
-> 
-> Female: closet, nap, laugh, aboard, aquarium
->
-> Summary: By analyzing these data this way, one gender would be able to find better ways to understand the opposite gender. (pun intended)
-
-
-******
-
-### Difference btween marital status
-
-> Let's look at the Comparison of Proportion graph of marital status
-
-\
-
-![](../figs/Proportion_MaritalStatus.png){ width=100% }
-
-
-> Obvious result came out.
->
-> Single feel happy with their boyfriend and girlfriend
->
-> Married feel happy with their husband and wife.
-
-#### More analysis
-
-> One interesting inference we can do it about how married people are happy with their kids -- as children, son, and daughter came out to be more towards married people. Another interseting inference (or obvious) is that single feel more happy with "text". By which describes the situation where single people text each other a lot in order to feel happy. On the other hand, married people are happy with their anniversary since married people are more tends to keep track of their anniversary. There are more analysis we can do with this Comparison of Proportions graph; however, I will just list some interesting words that are more towards a certain gender.
->
-> Single: fiance, airbnb, alcohol, midterm
-> 
-> Married: daycare, car, family
->
-> Summary: By analyzing these data this way, one can analyze the gap between how single and married people feel happy about. 
-
-******
-
-## 5 major topics of happiness
+## 5 Major Topics of Happy Moment
 
 > This section I used topic modeling to factor out 5 most significant topics among all the moments that make people happy. 
 
@@ -218,8 +156,87 @@ knitr::opts_chunk$set(echo = TRUE)
 \
 
 
+> Summary: the 5 major topics that people feel happy are being motivated, security in their jobs, friendship & relationship, family & love, and entertainment. 
+
+
+
+\
+
+
+
 
 ******
+
+## Among different values, we are going to examine how those factors affect the different groups of people. 
+
+
+
+> We are going to divide into two subtopics.
+>
+> \ 1. Difference between genders
+>
+> \ 2. Difference between marital status
+>
+> We are going to analyze by using proportion difference of two groups.
+
+
+******
+
+### Difference btween genders
+
+> Let's look at the Comparison of Proportion graph of male and female.
+
+\
+
+![](../figs/Proportion_Gender.png){ width=100% }
+
+> Obvious result came out.
+>
+> Males feel happy with their wife, girlfriend.
+>
+> Females feel happy with their husband and boyfriend.
+
+#### More analysis
+
+> One interesting inference we can do it about how males prefer investing and gambling as the words "bitcoin" and "bet" were more towards male in the graph. Another interseting inference (or obvious) is that female feel more happy with "makeup". There are more analysis we can do with this Comparison of Proportions graph; however, I will just list some interesting words that are more towards a certain gender.
+>
+> Male: auto, video, cigarrete, alcohol, dj, and etc.
+> 
+> Female: closet, nap, laugh, aboard, aquarium
+>
+> Summary: By analyzing these data this way, one gender would be able to find better ways to understand the opposite gender. (pun intended)
+
+
+******
+
+### Difference btween marital status
+
+> Let's look at the Comparison of Proportion graph of marital status
+
+\
+
+![](../figs/Proportion_MaritalStatus.png){ width=100% }
+
+
+> Obvious result came out.
+>
+> Single feel happy with their boyfriend and girlfriend
+>
+> Married feel happy with their husband and wife.
+
+#### More analysis
+
+> One interesting inference we can do it about how married people are happy with their kids -- as children, son, and daughter came out to be more towards married people. Another interseting inference (or obvious) is that single feel more happy with "text". By which describes the situation where single people text each other a lot in order to feel happy. On the other hand, married people are happy with their anniversary since married people are more tends to keep track of their anniversary. There are more analysis we can do with this Comparison of Proportions graph; however, I will just list some interesting words that are more towards a certain gender.
+>
+> Single: fiance, airbnb, alcohol, midterm
+> 
+> Married: daycare, car, family
+>
+> Summary: By analyzing these data this way, one can analyze the gap between how single and married people feel happy about. 
+
+******
+
+
 
 
 
@@ -243,132 +260,132 @@ library(dplyr)
 library(stringi) 
 ```
 
-<!-- # ```{r echo=FALSE, warning=FALSE, message=FALSE} -->
-<!-- #  -->
-<!-- # ## Read in data file (preprocessed) -->
-<!-- #  -->
-<!-- # hm <- read.csv("../output/processed_moments.csv") -->
-<!-- # hm <- hm[0:100000,] -->
-<!-- #  -->
-<!-- # ``` -->
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+## Read in data file (preprocessed)
+
+hm <- read.csv("../output/processed_moments.csv")
+hm <- hm[0:100000,]
+
+```
 
 
-<!-- # ```{r echo=FALSE, warning=FALSE, message=FALSE} -->
-<!-- #  -->
-<!-- # ## Aggregate the data -->
-<!-- #  -->
-<!-- # hm_byusers <- aggregate(x = hm$hmid, by = list(hm$text), paste, collapse=". ") -->
-<!-- # colnames(hm_byusers) <- c("text", "hmid") -->
-<!-- #  -->
-<!-- # ``` -->
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+## Aggregate the data
+
+hm_byusers <- aggregate(x = hm$hmid, by = list(hm$text), paste, collapse=". ")
+colnames(hm_byusers) <- c("text", "hmid")
+
+```
 
 
-<!-- # ```{r echo=FALSE, warning=FALSE, message=FALSE} -->
-<!-- #  -->
-<!-- # ## Converting texts into corpus -->
-<!-- #  -->
-<!-- # hm_byusers_corpus <- iconv(hm_byusers$text) -->
-<!-- # corpus <- Corpus(VectorSource(hm_byusers_corpus)) -->
-<!-- #  -->
-<!-- # ``` -->
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+## Converting texts into corpus
+
+hm_byusers_corpus <- iconv(hm_byusers$text)
+corpus <- Corpus(VectorSource(hm_byusers_corpus))
+
+```
 
 
-<!-- # ```{r echo=FALSE, warning=FALSE, message=FALSE} -->
-<!-- #  -->
-<!-- # ## Construct a document-term matrix (DTM) -->
-<!-- #  -->
-<!-- # dtm <- DocumentTermMatrix(corpus) -->
-<!-- #  -->
-<!-- # ``` -->
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+## Construct a document-term matrix (DTM)
+
+dtm <- DocumentTermMatrix(corpus)
+
+```
 
 
-<!-- # ```{r echo=FALSE, warning=FALSE, message=FALSE} -->
-<!-- #  -->
-<!-- # ## Remove empty documents from DTM -->
-<!-- #  -->
-<!-- # rowTotals<-apply(dtm,1,sum) #running this line takes time -->
-<!-- # empty.rows<-dtm[rowTotals==0,]$dimnames[1][[1]]  -->
-<!-- # corpus<-corpus[-as.numeric(empty.rows)] -->
-<!-- # dtm <- DocumentTermMatrix(corpus)   -->
-<!-- #  -->
-<!-- # ``` -->
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+## Remove empty documents from DTM
+
+rowTotals<-apply(dtm,1,sum) #running this line takes time
+empty.rows<-dtm[rowTotals==0,]$dimnames[1][[1]]
+corpus<-corpus[-as.numeric(empty.rows)]
+dtm <- DocumentTermMatrix(corpus)
+
+```
 
 
-<!-- # ```{r echo=FALSE, warning=FALSE, message=FALSE} -->
-<!-- #  -->
-<!-- # ## Finding the frequency of different terms -->
-<!-- #  -->
-<!-- # dtm.mx <- as.matrix(dtm) -->
-<!-- # frequency <- colSums(dtm.mx) -->
-<!-- # frequency <- sort(frequency, decreasing=TRUE) -->
-<!-- # frequency[1:25] -->
-<!-- #  -->
-<!-- # ``` -->
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 
-<!-- # ```{r echo=FALSE, warning=FALSE, message=FALSE} -->
-<!-- #  -->
-<!-- # ## Setting parameters for LDA (topic modeling) -->
-<!-- #  -->
-<!-- # burnin <- 4000 -->
-<!-- # iter <- 2000 -->
-<!-- # thin <- 500 -->
-<!-- # seed <-list(2003,5,63,100001,765) -->
-<!-- # nstart <- 5 -->
-<!-- # best <- TRUE -->
-<!-- #  -->
-<!-- # ## Find 5 topics -->
-<!-- #  -->
-<!-- # k <- 5 -->
-<!-- #  -->
-<!-- # ``` -->
+## Finding the frequency of different terms
+
+dtm.mx <- as.matrix(dtm)
+frequency <- colSums(dtm.mx)
+frequency <- sort(frequency, decreasing=TRUE)
+frequency[1:25]
+
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+## Setting parameters for LDA (topic modeling)
+
+burnin <- 4000
+iter <- 2000
+thin <- 500
+seed <-list(2003,5,63,100001,765)
+nstart <- 5
+best <- TRUE
+
+## Find 5 topics
+
+k <- 5
+
+```
 
 
 
-<!-- # ```{r echo=FALSE, warning=FALSE, message=FALSE} -->
-<!-- #  -->
-<!-- # ## Running Topic Modeling using Gibbs method -->
-<!-- #  -->
-<!-- # ldaOut <-LDA(dtm,k, method="Gibbs", control=list(nstart=nstart, seed = seed, best=best, burnin = burnin, iter = iter, thin=thin)) -->
-<!-- #  -->
-<!-- # ``` -->
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 
-<!-- # ```{r echo=FALSE, warning=FALSE, message=FALSE} -->
-<!-- #  -->
-<!-- # ldaOut.topics <- as.matrix(topics(ldaOut)) -->
-<!-- # write.csv(ldaOut.topics,file=paste("topic_model",k,"DocsToTopics.csv")) -->
-<!-- #   -->
-<!-- # ``` -->
+## Running Topic Modeling using Gibbs method
 
-<!-- # ```{r echo=FALSE, warning=FALSE, message=FALSE} -->
-<!-- #  -->
-<!-- # ## Finding keywords associated with each topic -->
-<!-- #  -->
-<!-- # ldaOut.terms <- as.matrix(terms(ldaOut,10)) -->
-<!-- # write.csv(ldaOut.terms,file=paste("topic_model",k,"TopicsToTerms.csv")) -->
-<!-- # ldaOut.terms[1:10,] -->
-<!-- #  -->
-<!-- # ``` -->
+ldaOut <-LDA(dtm,k, method="Gibbs", control=list(nstart=nstart, seed = seed, best=best, burnin = burnin, iter = iter, thin=thin))
 
-<!-- # ```{r echo=FALSE, warning=FALSE, message=FALSE} -->
-<!-- #  -->
-<!-- # ## To visualize the topic modeling result -->
+```
 
-<!-- # topicmodels2LDAvis <- function(x, ...){ -->
-<!-- #   post <- topicmodels::posterior(x) -->
-<!-- #   if (ncol(post[["topics"]]) < 3) stop("The model must contain > 2 topics") -->
-<!-- #   mat <- x@wordassignments -->
-<!-- #   LDAvis::createJSON( -->
-<!-- #     phi = post[["terms"]],  -->
-<!-- #     theta = post[["topics"]], -->
-<!-- #     vocab = colnames(post[["terms"]]), -->
-<!-- #     doc.length = slam::row_sums(mat, na.rm = TRUE), -->
-<!-- #     term.frequency = slam::col_sums(mat, na.rm = TRUE) -->
-<!-- #   ) -->
-<!-- # } -->
-<!-- #  -->
-<!-- # serVis(topicmodels2LDAvis(ldaOut)) -->
-<!-- #  -->
-<!-- # ``` -->
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+ldaOut.topics <- as.matrix(topics(ldaOut))
+write.csv(ldaOut.topics,file=paste("topic_model",k,"DocsToTopics.csv"))
+
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+## Finding keywords associated with each topic
+
+ldaOut.terms <- as.matrix(terms(ldaOut,10))
+write.csv(ldaOut.terms,file=paste("topic_model",k,"TopicsToTerms.csv"))
+ldaOut.terms[1:10,]
+
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+## To visualize the topic modeling result
+
+topicmodels2LDAvis <- function(x, ...){
+  post <- topicmodels::posterior(x)
+  if (ncol(post[["topics"]]) < 3) stop("The model must contain > 2 topics")
+  mat <- x@wordassignments
+  LDAvis::createJSON(
+    phi = post[["terms"]],
+    theta = post[["topics"]],
+    vocab = colnames(post[["terms"]]),
+    doc.length = slam::row_sums(mat, na.rm = TRUE),
+    term.frequency = slam::col_sums(mat, na.rm = TRUE)
+  )
+}
+
+serVis(topicmodels2LDAvis(ldaOut))
+
+```
 
 <!-- Now running analysis using Shiny App -->
 
