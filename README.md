@@ -9,12 +9,14 @@ This is the first and only *individual* (as opposed to *team*) this semester.
 
 Term: Spring 2019
 
-+ Projec title: Boys and Girls! Children and Adults! Are You Happy?! 
++ Projec title: Boys and Girls! Single and Married! Are You Happy?! 
 + This project is conducted by HyunBin Yoo
 
-+ Project summary: [a short summary] Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
++ Project summary: In this project, I would like to define the distiction between what defines "Happiness" among different genders and marital status. This would be a crutial database which could be used as a cornerstone of development of any dating application such as Tinder and eharmony. I have used statistical analysis tool such as proportion graph, wordcloud, and topic modeling.  
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
+
++ Reference: I have used the following website to learn about how to code topic modeling in R: https://rpubs.com/cosmopolitanvan/topicmodeling 
 
 ```
 proj/
