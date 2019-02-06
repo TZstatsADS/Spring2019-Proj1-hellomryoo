@@ -1,0 +1,141 @@
+---
+title: "R Notebook"
+author: "HyunBin Yoo"
+output: html_notebook
+runtime: shiny
+---
+
+# Step 0: check and install needed packages. Load the libraries and functions. 
+
+```{r, message=FALSE, warning=FALSE}
+library(tm)
+library(topicmodels)
+library(LDAvis)
+library(servr)
+library(dplyr)
+library(stringi) 
+```
+
+This notebook was prepared with the following environmental settings.
+
+```{r}
+print(R.version)
+```
+
+Read in csv file
+
+```{r}
+hm <- read.csv("../output/processed_moments.csv")
+hm <- hm[0:100000,]
+```
+
+See the columns of the dataset
+
+```{r}
+colnames(hm)
+```
+
+
+Aggregate
+
+```{r}
+hm_byusers <- aggregate(x = hm$hmid, by = list(hm$text), paste, collapse=". ")
+colnames(hm_byusers) <- c("text", "hmid")
+```
+
+Convert text into corpus
+
+```{r}
+hm_byusers_corpus <- iconv(hm_byusers$text)
+corpus <- Corpus(VectorSource(hm_byusers_corpus))
+```
+
+Construct a document-term matrix (DTM)
+
+```{r}
+dtm <- DocumentTermMatrix(corpus)  
+```
+
+Remove empty documents from DTM
+
+```{r}
+rowTotals<-apply(dtm,1,sum) #running this line takes time
+empty.rows<-dtm[rowTotals==0,]$dimnames[1][[1]] 
+corpus<-corpus[-as.numeric(empty.rows)]
+dtm <- DocumentTermMatrix(corpus)  
+```
+
+Finding the frequency of different terms
+
+```{r}
+dtm.mx <- as.matrix(dtm)
+frequency <- colSums(dtm.mx)
+frequency <- sort(frequency, decreasing=TRUE)
+frequency[1:25]  
+```
+
+```{r}
+burnin <- 4000
+iter <- 2000
+thin <- 500
+seed <-list(2003,5,63,100001,765)
+nstart <- 5
+best <- TRUE
+```
+
+```{r}
+k <- 5 #find 5 topics
+```
+
+
+```{r}
+ldaOut <-LDA(dtm,k, method="Gibbs", control=list(nstart=nstart, seed = seed, best=best, burnin = burnin, iter = iter, thin=thin))
+```
+
+```{r}
+ldaOut.topics <- as.matrix(topics(ldaOut))
+write.csv(ldaOut.topics,file=paste("topic_model",k,"DocsToTopics.csv"))
+``` 
+ 
+Finding keywords associated with each topic
+
+```{r}
+ldaOut.terms <- as.matrix(terms(ldaOut,10))
+write.csv(ldaOut.terms,file=paste("topic_model",k,"TopicsToTerms.csv"))
+ldaOut.terms[1:10,]
+```
+
+To visualize the topic modelling
+
+```{r}
+topicmodels2LDAvis <- function(x, ...){
+  post <- topicmodels::posterior(x)
+  if (ncol(post[["topics"]]) < 3) stop("The model must contain > 2 topics")
+  mat <- x@wordassignments
+  LDAvis::createJSON(
+    phi = post[["terms"]], 
+    theta = post[["topics"]],
+    vocab = colnames(post[["terms"]]),
+    doc.length = slam::row_sums(mat, na.rm = TRUE),
+    term.frequency = slam::col_sums(mat, na.rm = TRUE)
+  )
+}
+
+serVis(topicmodels2LDAvis(ldaOut))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
