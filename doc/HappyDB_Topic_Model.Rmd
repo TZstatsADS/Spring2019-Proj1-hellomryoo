@@ -2,7 +2,6 @@
 title: "R Notebook"
 author: "HyunBin Yoo"
 output: html_notebook
-runtime: shiny
 ---
 
 # Step 0: check and install needed packages. Load the libraries and functions. 
